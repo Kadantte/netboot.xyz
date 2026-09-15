@@ -3,19 +3,215 @@
 
 All notable changes to this project will be documented in this file.
 
-## [Unreleased]
+## [3.0.4] - Unreleased
 
-## [2.0.83] - 2024-00-00
+## [3.0.3] - 2026-08-17
+
+### Added
+
+- Proxmox VE arm64 installer support
+- NixOS 26.05 and nixos-unstable rolling release
+- Mageia 10
+
+### Changed
+
+- Proxmox menu entries and boot targets are now gated by architecture, so each platform only sees the products available for it
+- VGA framebuffer kernel parameters are now only applied to amd64 Proxmox boots
+- Updated Alpine Linux to 3.24
+- Updated Arch Linux to 2026.08.01
+- Updated Fedora CoreOS to 44.20260707.3.1 (stable), 44.20260720.2.1 (testing), and 44.20260720.1.1 (next)
+- Updated IPFire to 2.29 Core203
+- Updated SmartOS to 20260723T000757Z
+- Updated actions/checkout to v7
+- Updated actions/setup-python to v7
+- Various distribution version updates across all supported operating systems
+
+### Fixed
+
+- Duplicate Proxmox VE menu entries and an incorrect kernel URL that appeared once a second Proxmox VE endpoint was defined for another architecture
+- Custom menu options (GitHub, URL, and local `custom.ipxe`) now clear the menu before showing the error screen when the chain fails, breaking a fallback loop
+- Empty Mageia menu entry caused by the version checker tracking a release directory that no longer exists on the mirror
+
+## [3.0.2] - 2026-05-05
+
+### Added
+
+- Omarchy Linux live image support
+- Ubuntu 26.04 LTS (Resolute Raccoon) installer and live images
+- Fedora 44 installer support
+- CentOS Stream CoreOS (SCOS) and Red Hat Enterprise Linux CoreOS (RHCOS) menu entries
+- Legacy USB iPXE bootloader variants (`netboot.xyz-legacy.*`) for systems where USB NIC drivers prevent USB keyboard input under BIOS
+
+### Changed
+
+- Updated Ansible to v13.6.0
+- Updated ansible-lint to v26.4.0
+- Removed older Ubuntu versions from the menu
+- Updated OpenBSD release information
+- Improved readability of legacy USB bootloader descriptions in README
+- Various distribution version updates across all supported operating systems
+
+### Fixed
+
+- live-debian major version filter now uses `.startswith()` to avoid matching unintended versions
+
+## [3.0.1] - 2026-03-27
+
+### Added
+
+- UEFI Secure Boot support using iPXE v2.0.0 signed binaries with ISO, USB, and tarball release assets
+  - See [Secure Boot documentation](https://netboot.xyz/docs/kb/hardware/secureboot) for details
+- Ubuntu installer HWE (Hardware Enablement) kernel support
+- Debian 13 (Trixie) live images
+
+### Changed
+
+- Updated Ansible to v13.4.0
+- Updated aws-actions/configure-aws-credentials action to v6
+- Dropped Debian 12 live images in favor of Debian 13
+- Various distribution version updates across all supported operating systems
+
+### Fixed
+
+- Ansible INJECT_FACTS_AS_VARS deprecation warnings resolved
+- Stale HWE kernel selection cleared on Ubuntu menu re-entry
+- Secure Boot checksum and asset path handling corrected
+- Secure Boot x86_64 USB image type corrected from Script to IMG
+
+## [3.0.0] - 2026-01-24
+
+### Added
+
+- Proxmox Datacenter Manager support with text and debug installation modes
+- Memtest86+ v8.00 series support
+
+### Changed
+
+- **BREAKING**: Updated embedded certificates used for image signature verification in iPXE bootloaders
+- Users with 2.x bootloaders will be automatically upgraded to 3.x on first boot
+- Bumped major version to 3.x series due to code signing certificate updates requiring bootloader update
+- Various distribution version updates across all supported operating systems
+- Improved certificate retrieval script with commit SHA validation output
+
+### Fixed
+
+- Oracle Linux menu items now properly filter by architecture (x86_64 vs aarch64)
+- OpenSUSE Tumbleweed ARM64 build configuration corrected to use ports mirror
+- Flatcar Container Linux boot redirect issue resolved
+
+## [2.0.89] - 2025-11-08
+
+### Added
+
+- OpenSUSE 16.0 support with live ISO boot method
+- Dasharo Tools Suite updated to v2.7.0 and v2.7.1
+
+### Changed
+
+- Updated Ansible to v12 for improved build system
+- Updated ansible-lint to v24.12.2 with compatibility fixes
+- Various distribution version updates:
+  - Arch Linux updated to 2025.11.01
+  - SmartOS updated to 20251030T000436Z
+  - CoreOS updated to 42.20251012.3.0-stable, 43.20251024.2.0-testing, 43.20251027.1.0-next
+  - IPFire updated to 2.29-core198
+- Improved dependency tracking in GitHub workflows
+- Updated GitHub Actions:
+  - actions/checkout to v5
+  - actions/setup-python to v6
+  - aws-actions/configure-aws-credentials to v5
+
+### Fixed
+
+- OpenSUSE 16.0 boot configuration now uses live ISO method with proper root= parameter
+- Ansible-lint configuration updated to skip var-naming rule for internal variables
+- CI/CD compatibility issues resolved between Ansible and ansible-lint versions
+- Renovate configuration JSON syntax errors corrected
+
+## [2.0.88] - 2025-08-09
+
+### Added
+
+- CachyOS live distribution with archiso boot configuration
+- Ubuntu Spins distribution template for Ubuntu flavor variants  
+- Debian 13 (Trixie) net installer
+- Rocky Linux 10 and AlmaLinux 10 
+- Flatcar Container Linux ARM64 architecture support
+- Proxmox VE 9.0
+- Dasharo Tools Suite updated to v2.6.0
+- SystemRescue archiso_pxe_http initrd support
+
+### Changed
+
+- FreeDOS updated to v1.4 with corrected URLs
+- Various distribution version updates and endpoint refreshes
+- Improved MAC address handling in TFTP boot configuration
+
+### Fixed
+
+- Fedora CoreOS kernel filename format corrected
+
+### Removed
+
+- Deepin distribution completely removed from the system
+
+## [2.0.87] - 2025-05-08
+
+### Added
+
+- Fedora Onyx build
+- Kali arm64 Added
+
+### Changed
+
+- Various version updates
+- Cleanup of older distros from endpoints
+
+## [2.0.86] - 2025-03-13
+
+### Added
+
+- Support for Kairos
+- Enabled NFS support in iPXE
+
+## [2.0.85] - 2025-02-23
+
+### Changed
+
+- Various version updates
+- Checks for boot timeout from local-vars.ipxe
+
+## [2.0.84] - 2025-01-04
+
+### Added
+
+- UEFI Shell available under utilities for x86/ARM UEFI mode
+- Floppy boot images for UEFI
+- Dasharo Tools Suite
+- Latest GRML added with ARM support
+
+### Changed
+
+- Moves win_base_url and rhel_base_url out of boot.cfg to local-vars.ipxe as they are
+  user defined variables.
+- Adds a check in boot.cfg to see if live_endpoint is set from local-vars.ipxe. This
+  will allow the user to set their overrides locally on their network.
+
+## [2.0.83] - 2024-11-07
+
+### Changed
+
+- Various version updates
 
 ## [2.0.82] - 2024-09-18
 
-## Changed
+### Changed
 
 - Various version updates
 
 ## [2.0.81] - 2024-08-10
 
-## Added
+### Added
 
 - Added ZFSBootMenu
 - Added VanillaOS
